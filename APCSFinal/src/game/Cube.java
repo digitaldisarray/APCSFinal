@@ -37,6 +37,7 @@ public class Cube {
 		this.type = type;
 	}
 
+	// TODO: Seperate TextureManager class
 	public static void loadTextures(GL2 gl) {
 		gl.glEnable(GL2.GL_TEXTURE_2D);
 

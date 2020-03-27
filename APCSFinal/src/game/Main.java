@@ -26,14 +26,20 @@ public class Main {
 
 	public void setUpFrame() {
 		frame = new JFrame();
-
+		
 		frame.getContentPane().setCursor(Toolkit.getDefaultToolkit()
 				.createCustomCursor(Toolkit.getDefaultToolkit().getImage(""), new Point(), ""));
 
 		frame.getContentPane().add(canvas);
 
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setUndecorated(true);
+		// TODO: Make a seperate launcher where they choose to launch full screen or not
+		
+		// Fullscreen mode
+//		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//		frame.setUndecorated(true);
+		
+		frame.setSize(800, 600);
+
 		frame.setVisible(true);
 
 	}
@@ -56,17 +62,13 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-
 		Main main = new Main();
-
 		main.setUpGameplay();
 
 		// main.setUpServerConnection();
 
 		main.setUpFrame();
-
 		main.startGame();
-
 	}
 
 }
