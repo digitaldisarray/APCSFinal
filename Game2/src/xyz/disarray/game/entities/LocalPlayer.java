@@ -69,6 +69,7 @@ public class LocalPlayer extends Entity {
 	}
 
 	public void shoot(int x2, int y2) {
+		// TODO: Remove this debug var eventually
 		boolean rayTraced = true;
 
 		if (rayTraced) {
@@ -80,7 +81,7 @@ public class LocalPlayer extends Entity {
 				else
 					mouseAngle = 360 - mouseAngle;
 
-			bullets.add(new RayBullet(getX(), getY(), mouseAngle, 1000));
+			bullets.add(new RayBullet(getX() + getWidth() / 2, getY() + getHeight() / 2, mouseAngle, 1000));
 
 		} else {
 			// Radians
