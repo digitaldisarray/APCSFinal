@@ -1,6 +1,6 @@
 ## APCS Final Project
 
-A 3D multiplayer game in Java using OpenGL.
+A 2D multiplayer game in Java for our APCS Class.
 
 Authors:
  - Kevin Rossel
