@@ -75,72 +75,7 @@ public class Game extends PApplet {
 			player.act();
 			singleplayer.act();
 
-			// TODO: Move collisions code to a method and/or clean it up
-			// TODO: Check if local player is alive?
-			ArrayList<Entity> bullets = player.getBullets(); // Refresh the list of bullets
-			ArrayList<Entity> entities = singleplayer.getEntities(); // Refresh the list of entities
-			if (entities.size() > 0) {
-				// Bullet collisions
-				if (bullets.size() > 0) {
-					// TODO: Remove this and do a better check for the type of bullet we are checking collisions of
-					if (bullets.get(0) instanceof RayBullet) { 
-						for (Entity b : bullets) {
-							RayBullet b2 = (RayBullet) b;
-							// If we have not processed the shot already.
-							if (!b2.isEndPointChecked()) {
-								
-								Entity closestEnt = null;
-								Point2D closest = null;
-								double closestDst = Double.MAX_VALUE;
-								for (Entity e : entities) {
-									for (Line2D l : e.getSegments()) {
-										Point2D p = RayCasting.getLineIntersection(b2.getLine(), l);
-										if (p == null)
-											continue;
-										
-										double dst = Math.sqrt(Math.pow(Math.abs(player.getX() - p.getX()), 2)
-												+ Math.pow(Math.abs(player.getY() - p.getY()), 2));
-
-										if (dst < closestDst) {
-											closest = p;
-											closestDst = dst;
-											closestEnt = e;
-										}
-									}
-								}
-								
-								if(closest != null) {
-									b2.setEndpoint(closest);
-									closestEnt.collide(b);
-								}
-								
-								
-								b2.endPointChecked();
-							}
-						}
-
-					} else if (bullets.get(0) instanceof Bullet) {
-
-					}
-				}
-
-				// Movement collisions for local player
-				// TODO: Move this into a func because it will be re-used in multiplayer?
-				// NOTICE: If we have it so the player can move around an area larger than the window size we will need to change this
-				if(player.getX() < 0) 
-					player.setPos(0, player.getY());
-				
-				if(player.getX() > 800)
-					player.setPos(800, player.getY());
-				
-				if(player.getY() < 0)
-					player.setPos(player.getX(), 0);
-				
-				if(player.getY() > 600) 
-					player.setPos(player.getX(), 600);
-				
-				
-			}
+			doCollisions(player, singleplayer);
 
 			singleplayer.draw(this);
 			player.draw(this);
@@ -215,5 +150,72 @@ public class Game extends PApplet {
 			}
 		}
 	}
+	
+	// TODO: Make this work with mutliplayer
+	public void doCollisions(LocalPlayer player, Singleplayer singleplayer) {
+		ArrayList<Entity> bullets = player.getBullets(); // Refresh the list of bullets
+		ArrayList<Entity> entities = singleplayer.getEntities(); // Refresh the list of entities
+		if (entities.size() > 0) {
+			// Bullet collisions
+			if (bullets.size() > 0) {
+				// TODO: Remove this and do a better check for the type of bullet we are checking collisions of
+				if (bullets.get(0) instanceof RayBullet) { 
+					for (Entity b : bullets) {
+						RayBullet b2 = (RayBullet) b;
+						// If we have not processed the shot already.
+						if (!b2.isEndPointChecked()) {
+							
+							Entity closestEnt = null;
+							Point2D closest = null;
+							double closestDst = Double.MAX_VALUE;
+							for (Entity e : entities) {
+								for (Line2D l : e.getSegments()) {
+									Point2D p = RayCasting.getLineIntersection(b2.getLine(), l);
+									if (p == null)
+										continue;
+									
+									double dst = Math.sqrt(Math.pow(Math.abs(player.getX() - p.getX()), 2)
+											+ Math.pow(Math.abs(player.getY() - p.getY()), 2));
 
+									if (dst < closestDst) {
+										closest = p;
+										closestDst = dst;
+										closestEnt = e;
+									}
+								}
+							}
+							
+							if(closest != null) {
+								b2.setEndpoint(closest);
+								closestEnt.collide(b);
+							}
+							
+							
+							b2.endPointChecked();
+						}
+					}
+
+				} else if (bullets.get(0) instanceof Bullet) {
+
+				}
+			}
+
+			// Movement collisions for local player
+			// NOTICE: If we have it so the player can move around an area larger than the window size we will need to change this
+			if(player.getX() < 0) 
+				player.setPos(0, player.getY());
+			
+			if(player.getX() > 800)
+				player.setPos(800, player.getY());
+			
+			if(player.getY() < 0)
+				player.setPos(player.getX(), 0);
+			
+			if(player.getY() > 600) 
+				player.setPos(player.getX(), 600);
+			
+			
+		}
+	}
+	
 }
