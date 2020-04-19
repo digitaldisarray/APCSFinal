@@ -3,6 +3,8 @@ package xyz.disarray.game;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import processing.core.PApplet;
 import xyz.disarray.game.entities.Bullet;
@@ -77,40 +79,43 @@ public class Game extends PApplet {
 			// TODO: Check if local player is alive?
 			ArrayList<Entity> bullets = player.getBullets(); // Refresh the list of bullets
 			ArrayList<Entity> entities = singleplayer.getEntities(); // Refresh the list of entities
-			ArrayList<Point2D> points = new ArrayList<>();
 			if (entities.size() > 0) {
 				// Bullet collisions
 				if (bullets.size() > 0) {
-					if (bullets.get(0) instanceof RayBullet) {
+					// TODO: Remove this and do a better check for the type of bullet we are checking collisions of
+					if (bullets.get(0) instanceof RayBullet) { 
 						for (Entity b : bullets) {
 							RayBullet b2 = (RayBullet) b;
+							// If we have not processed the shot already.
 							if (!b2.isEndPointChecked()) {
+								
+								Entity closestEnt = null;
+								Point2D closest = null;
+								double closestDst = Double.MAX_VALUE;
 								for (Entity e : entities) {
 									for (Line2D l : e.getSegments()) {
 										Point2D p = RayCasting.getLineIntersection(b2.getLine(), l);
-										if (p != null)
-											points.add(p);
-									}
-								}
-
-								if (points.size() != 0) {
-									Point2D closest = null;
-									double closestDst = Double.MAX_VALUE;
-									for (Point2D p : points) {
+										if (p == null)
+											continue;
+										
 										double dst = Math.sqrt(Math.pow(Math.abs(player.getX() - p.getX()), 2)
 												+ Math.pow(Math.abs(player.getY() - p.getY()), 2));
 
 										if (dst < closestDst) {
 											closest = p;
 											closestDst = dst;
+											closestEnt = e;
 										}
 									}
-
-									b2.setEndpoint(closest);
 								}
-
+								
+								if(closest != null) {
+									b2.setEndpoint(closest);
+									closestEnt.collide(b);
+								}
+								
+								
 								b2.endPointChecked();
-								points.clear();
 							}
 						}
 

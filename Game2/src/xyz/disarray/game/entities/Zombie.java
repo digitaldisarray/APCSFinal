@@ -26,5 +26,10 @@ public class Zombie extends Entity {
 
 		g.popMatrix();
 	}
-
+	
+	public void collide(Entity e) {
+		if(e instanceof Bullet || e instanceof RayBullet) 
+			remove();
+	}
+	
 }

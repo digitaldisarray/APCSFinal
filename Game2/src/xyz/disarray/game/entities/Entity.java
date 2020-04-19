@@ -28,6 +28,10 @@ public abstract class Entity {
 
 	public abstract void draw(PApplet g);
 
+	public void collide(Entity e) {
+		
+	}
+	
 	public int getX() {
 		return x;
 	}
