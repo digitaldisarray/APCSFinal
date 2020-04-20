@@ -27,8 +27,8 @@ public class Game extends PApplet {
 
 	private enum GameState {
 		MENU, SINGLEPLAYER, MUTLIPLAYER
-	};
-
+	}
+	
 	public void setup() {
 		// I payed for 144hz so why not use all of them
 		frameRate(144);
