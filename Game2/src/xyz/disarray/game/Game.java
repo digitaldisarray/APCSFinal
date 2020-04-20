@@ -3,8 +3,6 @@ package xyz.disarray.game;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import processing.core.PApplet;
 import xyz.disarray.game.entities.Bullet;
@@ -20,7 +18,6 @@ public class Game extends PApplet {
 	// This is the instance of our main menu, might want to reconsider how we handle menus
 	private MainMenu menu;
 	
-	
 	private Singleplayer singleplayer; // Instance of the singleplayer game
 	private LocalPlayer player; // The local player (shared across multiplayer and single player)
 	private GameState state; // What state of the game we are currently on
@@ -33,7 +30,7 @@ public class Game extends PApplet {
 		// I payed for 144hz so why not use all of them
 		frameRate(144);
 //		frameRate(60);
-		menu = new MainMenu();
+		menu = new MainMenu(this);
 		state = GameState.MENU;
 		surface.setSize(800, 600);
 		surface.setResizable(false);

@@ -4,14 +4,18 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PImage;
 import xyz.disarray.game.screens.components.Button;
 
 public class MainMenu {
 
 	private ArrayList<Button> buttons = new ArrayList<>();
-
-	public MainMenu() {
-
+	
+	private PImage background;
+	
+	public MainMenu(PApplet g) {
+		background = g.loadImage("res/img/pod1.png");
+		
 		// This entire button system is bad but it works
 		buttons.add(new Button("Singleplayer"));
 		buttons.add(new Button("Multiplayer"));
@@ -20,7 +24,19 @@ public class MainMenu {
 
 	public void draw(PApplet g) {
 		g.rectMode(PConstants.CORNER);
-
+		
+		// Background
+		g.image(background, 0, 0, g.width, g.height);
+		
+		// Meme logo (delete before final version)
+		g.textSize(50);
+		g.fill(0, 50, 255);
+		g.stroke(255, 255, 255);
+		g.rect(g.width / 2 - g.textWidth("G A M E") / 2, g.height / 3 + 2, g.textWidth("G A M E"), 50);
+		g.fill(255, 50, 100);
+		g.text("G A M E", (g.width - g.textWidth("G A M E")) / 2 , g.height / 3);
+		g.textSize(12);
+		
 		// Buttons
 		for (int i = 0; i < buttons.size(); i++) {
 			buttons.get(i).draw(g, g.width / 2, 300 + 40 * i);

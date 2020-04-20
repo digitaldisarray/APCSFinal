@@ -53,7 +53,7 @@ public class Launcher {
 	 * @return Returns a random message from the messages text file.
 	 */
 	public static String generate() {
-		File file = new File("data/messages");
+		File file = new File("res/messages");
 		Scanner sc;
 		try {
 			sc = new Scanner(file);
