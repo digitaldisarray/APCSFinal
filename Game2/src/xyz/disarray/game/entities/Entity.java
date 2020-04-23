@@ -1,7 +1,9 @@
 package xyz.disarray.game.entities;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 
 import processing.core.PApplet;
 
@@ -86,4 +88,13 @@ public abstract class Entity {
 
 		return new Line2D[] { top, bottom, left, right };
 	}
+	
+	public Rectangle2D getRect() {
+		Rectangle2D rect = new Rectangle2D.Float();
+		
+		rect.setRect(x, y, width, height);
+		
+		return rect;
+	}
+	
 }

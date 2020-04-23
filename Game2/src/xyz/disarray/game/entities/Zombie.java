@@ -12,7 +12,7 @@ public class Zombie extends Entity {
 
 	@Override
 	public void act() {
-
+		
 	}
 
 	@Override
