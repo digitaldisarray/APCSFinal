@@ -9,7 +9,10 @@ import xyz.disarray.game.util.Colors;
 
 public class LocalPlayer extends Entity {
 
+	private int vx, vy;
 	private final int SPEED = 2;
+	private final int FRICTION = 2;
+	private final int MAX_VELOCITY = 6;
 	private boolean cright, cleft, cup, cdown;
 	private boolean right, left, up, down;
 	private boolean clicked;
@@ -28,22 +31,56 @@ public class LocalPlayer extends Entity {
 	@Override
 	public void act() {
 		if (right != left) {
-			if (right && !cright)
-				move(SPEED, 0);
-			else if(!cleft)
-				move(-SPEED, 0);
+			if (Math.abs(vx) + SPEED < MAX_VELOCITY) {
+				if (right)
+					vx += SPEED;
+				else
+					vx -= SPEED;
+			} else if (Math.abs(vx) + SPEED > MAX_VELOCITY) {
+				vx = MAX_VELOCITY * (vx / Math.abs(vx));
+			}
 		}
 
 		if (up != down) {
-			if (up && !cup)
-				move(0, -SPEED);
-			else if(!cdown)
-				move(0, SPEED);
+			if (Math.abs(vy) + SPEED < MAX_VELOCITY) {
+				if (up)
+					vy -= SPEED;
+				else
+					vy += SPEED;
+			} else {
+				vy = MAX_VELOCITY * (vy / Math.abs(vy));
+			}
 		}
+
+		if (cup)
+			vy = FRICTION;
+
+		if (cdown)
+			vy = -FRICTION;
+
+		if (cleft)
+			vx = FRICTION;
+
+		if (cright)
+			vx = -FRICTION;
+
+		move(vx, vy);
+
+		if (vx < 0)
+			vx += FRICTION;
+
+		if (vx > 0)
+			vx -= FRICTION;
+
+		if (vy < 0)
+			vy += FRICTION;
+
+		if (vy > 0)
+			vy -= FRICTION;
 
 		for (Entity b : bullets)
 			b.act();
-		
+
 		// Reset collision variables
 		cright = false;
 		cleft = false;
@@ -103,18 +140,18 @@ public class LocalPlayer extends Entity {
 //			bullets.add(new Bullet(getX(), getY(), shootVec, 40));
 		}
 	}
-	
+
 	public void lineCollided(Line2D line) {
-		if(line.getBounds().equals(getSegments()[0].getBounds())) 
+		if (line.getBounds().equals(getSegments()[0].getBounds()))
 			cup = true;
-			
-		if(line.getBounds().equals(getSegments()[1].getBounds()))
+
+		if (line.getBounds().equals(getSegments()[1].getBounds()))
 			cdown = true;
-		
-		if(line.getBounds().equals(getSegments()[2].getBounds()))
+
+		if (line.getBounds().equals(getSegments()[2].getBounds()))
 			cleft = true;
-		
-		if(line.getBounds().equals(getSegments()[3].getBounds()))
+
+		if (line.getBounds().equals(getSegments()[3].getBounds()))
 			cright = true;
 	}
 
