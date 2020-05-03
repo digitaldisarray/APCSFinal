@@ -2,17 +2,17 @@ package xyz.disarray.game.entities;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import xyz.disarray.game.util.Colors;
+import xyz.disarray.game.Game;
 
 public class Zombie extends Entity {
 
 	public Zombie(int x, int y) {
-		super(x, y, 25, Colors.BAD);
+		super(x, y, 25, Game.BAD);
 	}
 
 	@Override
 	public void act() {
-		
+
 	}
 
 	@Override
@@ -26,10 +26,10 @@ public class Zombie extends Entity {
 
 		g.popMatrix();
 	}
-	
+
 	public void collide(Entity e) {
-		if(e instanceof Bullet || e instanceof RayBullet) 
+		if (e instanceof Bullet || e instanceof RayBullet)
 			remove();
 	}
-	
+
 }

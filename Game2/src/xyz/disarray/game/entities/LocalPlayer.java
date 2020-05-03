@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import xyz.disarray.game.util.Colors;
+import xyz.disarray.game.Game;
 
 public class LocalPlayer extends Entity {
 
@@ -23,7 +23,7 @@ public class LocalPlayer extends Entity {
 	private ArrayList<Entity> bullets;
 
 	public LocalPlayer(int x, int y) {
-		super(x, y, 25, Colors.GOOD);
+		super(x, y, 25, Game.GOOD);
 		cooldown = 0;
 		bullets = new ArrayList<>();
 	}

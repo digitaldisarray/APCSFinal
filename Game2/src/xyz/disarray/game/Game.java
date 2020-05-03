@@ -1,8 +1,8 @@
 package xyz.disarray.game;
 
+import java.awt.Color;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -12,12 +12,18 @@ import xyz.disarray.game.entities.LocalPlayer;
 import xyz.disarray.game.entities.RayBullet;
 import xyz.disarray.game.screens.MainMenu;
 import xyz.disarray.game.screens.Singleplayer;
-import xyz.disarray.game.util.RayCasting;
 
 public class Game extends PApplet {
 
-	// This is the instance of our main menu, might want to reconsider how we handle
-	// menus
+	// Moved here to cut down on # of classes we have to draw in a UML diagram
+	// Primary colors for the game
+	// TODO: Make this adjustable in settings
+	public static final Color GOOD = new Color(0, 150, 250);
+	public static final Color BAD = new Color(255, 40, 40);
+	public static final Color GREY = new Color(100, 100, 100);
+	public static final Color DARK_GREY = new Color(50, 50, 50);
+
+	// The instance of our main menu, might want to reconsider how we handle menus
 	private MainMenu menu;
 
 	private Singleplayer singleplayer; // Instance of the singleplayer game
@@ -159,8 +165,7 @@ public class Game extends PApplet {
 		if (entities.size() > 0) {
 			// Bullet collisions
 			if (bullets.size() > 0) {
-				// TODO: Remove this and do a better check for the type of bullet we are
-				// checking collisions of
+				// TODO: Do a better check for the type of bullet we are running collisions on
 				if (bullets.get(0) instanceof RayBullet) {
 					for (Entity b : bullets) {
 						RayBullet b2 = (RayBullet) b;
@@ -172,7 +177,7 @@ public class Game extends PApplet {
 							double closestDst = Double.MAX_VALUE;
 							for (Entity e : entities) {
 								for (Line2D l : e.getSegments()) {
-									Point2D p = RayCasting.getLineIntersection(b2.getLine(), l);
+									Point2D p = getLineIntersection(b2.getLine(), l);
 									if (p == null)
 										continue;
 
@@ -227,6 +232,43 @@ public class Game extends PApplet {
 			if (player.getY() > 600)
 				player.setPos(player.getX(), 600);
 
+		}
+	}
+
+	// Moved here to cut down on # of classes we have to draw in a UML diagram
+	/**
+	 * Generates colors for bullets so they are either slightly lighter or darker
+	 * 
+	 * @return A slightly light or dark color for the bullet trail is returned
+	 */
+	public static Color getBulletColor() {
+		return new Color(255, 90 + (int) (Math.random() * 70), 0);
+	}
+
+	// Moved here to cut down on # of classes we have to draw in a UML diagram
+	// Stolen and then slightly modified from StackOverflow
+	public static Point2D getLineIntersection(Line2D ray, Line2D segment) {
+		if (ray.intersectsLine(segment)) {
+			double rx1 = ray.getX1(), ry1 = ray.getY1(), rx2 = ray.getX2(), ry2 = ray.getY2(), sx1 = segment.getX1(),
+					sy1 = segment.getY1(), sx2 = segment.getX2(), sy2 = segment.getY2(), rdx = rx2 - rx1,
+					rdy = ry2 - ry1, sdx = sx2 - sx1, sdy = sy2 - sy1, t1, t2, ix, iy;
+
+			t2 = (rdx * (sy1 - ry1) + rdy * (rx1 - sx1)) / (sdx * rdy - sdy * rdx);
+			t1 = (sx1 + sdx * t2 - rx1) / rdx;
+
+			// Perpendicular line edge-case
+			if (rdx == 0.0)
+				return new Point2D.Double((int) rx1, (int) sy1);
+
+			if (t1 > 0/* && 1 > t2 && t2 > 0 */) {
+				ix = rx1 + rdx * t1;
+				iy = ry1 + rdy * t1;
+				return new Point2D.Double((int) ix, (int) iy);
+			} else {
+				return null;
+			}
+		} else {
+			return null;
 		}
 	}
 
