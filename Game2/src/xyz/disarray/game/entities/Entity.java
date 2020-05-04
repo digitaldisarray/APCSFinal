@@ -66,9 +66,9 @@ public abstract class Entity {
 		return shouldRemove;
 	}
 
-	public void move(int mx, int my) {
-		this.x += mx;
-		this.y += my;
+	public void move(double vx, double vy) {
+		this.x += vx;
+		this.y += vy;
 	}
 
 	public void setPos(int x, int y) {

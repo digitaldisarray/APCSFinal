@@ -260,6 +260,10 @@ public class Game extends PApplet {
 			// Collide local player with walls and players
 			// TODO: This is really bad collision, someone fix it lol
 			for (Entity e : entities) {
+				
+				if(e instanceof Zombie)
+					continue;
+				
 				for (Line2D pl : player.getSegments()) {
 					if (pl.intersects(e.getRect())) {
 						player.lineCollided(pl);

@@ -32,7 +32,6 @@ public class LocalPlayer extends Entity {
 	@Override
 	public void act() {
 		
-		System.out.println("Health " +  getHealth());
 		
 		if (right != left) {
 			if (Math.abs(vx) + SPEED < MAX_VELOCITY) {
