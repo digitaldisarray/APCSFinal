@@ -7,7 +7,7 @@ import xyz.disarray.game.Game;
 
 public class Zombie extends Entity {
 
-	public static final int ATTACK_DAMAGE = -1;
+	public static final int ATTACK_DAMAGE = -99;
 	private int cooldown;
 
 	public Zombie(int x, int y) {

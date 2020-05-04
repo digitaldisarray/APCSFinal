@@ -6,6 +6,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Line2D.Float;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import processing.core.PApplet;
 import xyz.disarray.game.entities.Bullet;
 import xyz.disarray.game.entities.Entity;
@@ -30,8 +32,8 @@ public class Game extends PApplet {
 	private MainMenu menu;
 
 	private Singleplayer singleplayer; // Instance of the singleplayer game
-	
-	//how to do epic code like an epic coder make eveyrhting public static
+
+	// how to do epic code like an epic coder make eveyrhting public static
 	public static LocalPlayer player; // The local player (shared across multiplayer and single player)
 	private GameState state; // What state of the game we are currently on
 
@@ -90,6 +92,12 @@ public class Game extends PApplet {
 			// Act
 			player.act();
 			singleplayer.act();
+
+			if (player.getHealth() <= 0) {
+
+				JOptionPane.showMessageDialog(null, "Printing complete");
+				state = GameState.MENU;
+			}
 
 			// Draw
 			singleplayer.draw(this);
