@@ -16,7 +16,8 @@ public class LocalPlayer extends Entity {
 	private boolean cright, cleft, cup, cdown;
 	private boolean right, left, up, down;
 	private boolean clicked;
-	private int cooldown; // Time in between shots fired for gun
+	private int cooldown; 	// Time in between shots fired for gun
+
 
 	// If we use only ray casted bullets, we can only have one active bullet at a
 	// time, and dont need an array list
@@ -30,6 +31,9 @@ public class LocalPlayer extends Entity {
 
 	@Override
 	public void act() {
+		
+		System.out.println("Health " +  getHealth());
+		
 		if (right != left) {
 			if (Math.abs(vx) + SPEED < MAX_VELOCITY) {
 				if (right)
@@ -182,4 +186,5 @@ public class LocalPlayer extends Entity {
 	public void removeBullet(Entity e) {
 		bullets.remove(bullets.indexOf(e));
 	}
+	
 }
