@@ -104,50 +104,30 @@ public class Game extends PApplet {
 		for (Entity e : entities) {
 			if (e instanceof Wall)
 				obstructions.add(e);
-			else if(e instanceof Zombie) // Add enemy player
+			else if (e instanceof Zombie) // Add enemy player
 				targets.add(e);
 		}
 
-		
 		for (Entity t : targets) {
 			// Get the line from source to target
+
 			Line2D line = new Line2D.Float();
+
 			line.setLine(source.getX(), source.getY(), t.getX(), t.getY());
-			double distance = Double.MAX_VALUE;
-			for (Line2D l : t.getSegments()) {
-				Point2D p = getLineIntersection(line, l);
-				if (p == null)
-					continue;
-				double dst = Math.sqrt(Math.pow(Math.abs(player.getX() - p.getX()), 2)
-						+ Math.pow(Math.abs(player.getY() - p.getY()), 2));
-				if(dst < distance)
-					distance = dst;
-			}
-			
+
+			t.setVisible(true);
+
 			for (Entity o : obstructions) {
-				for (Line2D l : o.getSegments()) {
-					Point2D p = getLineIntersection(line, l);
-					if (p == null)
-						continue;
+				for (Line2D seg : o.getSegments()) {
+					Point2D p = getLineIntersection(line, seg);
 
-					double dst = Math.sqrt(Math.pow(Math.abs(player.getX() - p.getX()), 2)
-							+ Math.pow(Math.abs(player.getY() - p.getY()), 2));
-
-					if (dst < distance) {
+					if (p != null) {
 						t.setVisible(false);
-						continue;
 					}
-					
-					t.setVisible(true);
 				}
 			}
-			
-			
+
 		}
-		
-		
-		
-		
 
 	}
 

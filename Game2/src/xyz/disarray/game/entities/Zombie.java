@@ -1,3 +1,4 @@
+
 package xyz.disarray.game.entities;
 
 import processing.core.PApplet;
@@ -17,6 +18,9 @@ public class Zombie extends Entity {
 
 	@Override
 	public void draw(PApplet g) {
+		if (!isVisible()) {
+			return;
+		}
 		g.pushMatrix();
 
 		g.noStroke();
@@ -25,6 +29,7 @@ public class Zombie extends Entity {
 		g.ellipse(getX(), getY(), getWidth(), getHeight());
 
 		g.popMatrix();
+
 	}
 
 	public void collide(Entity e) {
