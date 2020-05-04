@@ -3,6 +3,7 @@ package xyz.disarray.game;
 import java.awt.Color;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Line2D.Float;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -10,6 +11,8 @@ import xyz.disarray.game.entities.Bullet;
 import xyz.disarray.game.entities.Entity;
 import xyz.disarray.game.entities.LocalPlayer;
 import xyz.disarray.game.entities.RayBullet;
+import xyz.disarray.game.entities.Wall;
+import xyz.disarray.game.entities.Zombie;
 import xyz.disarray.game.screens.MainMenu;
 import xyz.disarray.game.screens.Singleplayer;
 
@@ -79,6 +82,9 @@ public class Game extends PApplet {
 			// Collide
 			doCollisions(player, singleplayer);
 
+			// Vis checks
+			doVisCheck(player, singleplayer.getEntities());
+
 			// Act
 			player.act();
 			singleplayer.act();
@@ -87,6 +93,61 @@ public class Game extends PApplet {
 			singleplayer.draw(this);
 			player.draw(this);
 		}
+
+	}
+
+	private void doVisCheck(Entity source, ArrayList<Entity> entities) {
+		ArrayList<Entity> obstructions = new ArrayList<>();
+		ArrayList<Entity> targets = new ArrayList<>();
+
+		// Sort obstructions and targets out
+		for (Entity e : entities) {
+			if (e instanceof Wall)
+				obstructions.add(e);
+			else if(e instanceof Zombie) // Add enemy player
+				targets.add(e);
+		}
+
+		
+		for (Entity t : targets) {
+			// Get the line from source to target
+			Line2D line = new Line2D.Float();
+			line.setLine(source.getX(), source.getY(), t.getX(), t.getY());
+			double distance = Double.MAX_VALUE;
+			for (Line2D l : t.getSegments()) {
+				Point2D p = getLineIntersection(line, l);
+				if (p == null)
+					continue;
+				double dst = Math.sqrt(Math.pow(Math.abs(player.getX() - p.getX()), 2)
+						+ Math.pow(Math.abs(player.getY() - p.getY()), 2));
+				if(dst < distance)
+					distance = dst;
+			}
+			
+			for (Entity o : obstructions) {
+				for (Line2D l : o.getSegments()) {
+					Point2D p = getLineIntersection(line, l);
+					if (p == null)
+						continue;
+
+					double dst = Math.sqrt(Math.pow(Math.abs(player.getX() - p.getX()), 2)
+							+ Math.pow(Math.abs(player.getY() - p.getY()), 2));
+
+					if (dst < distance) {
+						t.setVisible(false);
+						continue;
+					}
+					
+					t.setVisible(true);
+				}
+			}
+			
+			
+		}
+		
+		
+		
+		
 
 	}
 

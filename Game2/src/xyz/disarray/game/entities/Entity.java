@@ -1,7 +1,6 @@
 package xyz.disarray.game.entities;
 
 import java.awt.Color;
-import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
@@ -11,6 +10,7 @@ public abstract class Entity {
 	private int x, y, width, height;
 	private Color color;
 	private boolean shouldRemove;
+	private boolean visible;
 
 	public Entity(int x, int y, int width, Color color) {
 		this(x, y, width, width, color);
@@ -24,6 +24,7 @@ public abstract class Entity {
 		this.color = color;
 
 		shouldRemove = false;
+		visible = true;
 	}
 
 	public abstract void act();
@@ -95,6 +96,14 @@ public abstract class Entity {
 		rect.setRect(x, y, width, height);
 		
 		return rect;
+	}
+	
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+	
+	public boolean isVisible() {
+		return visible;
 	}
 	
 }
