@@ -12,9 +12,7 @@ public class Zombie extends Entity {
 	public static final int ATTACK_DAMAGE = -5;
 	private int attackCooldown, moveCooldown;
 	private double vx, vy;
-	private final int SPEED = 2;
 	private final int FRICTION = 2;
-	private final int MAX_VELOCITY = 6;
 	private boolean cright, cleft, cup, cdown;
 	
 	public static final int ATTACK_COOLDOWN = 100, MOVE_COOLDOWN = 3;
@@ -62,7 +60,7 @@ public class Zombie extends Entity {
 			if(playerX == getX())
 				vx = 0;
 
-			move(vx, vy);
+			//move(vx, vy);
 
 			if (cup)
 				vy = FRICTION;
@@ -76,7 +74,7 @@ public class Zombie extends Entity {
 			if (cright)
 				vx = -FRICTION;
 
-			move(vx, vy);
+			//move(vx, vy);
 
 			if (vx < 0)
 				vx += FRICTION;

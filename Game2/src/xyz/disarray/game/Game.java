@@ -3,8 +3,8 @@ package xyz.disarray.game;
 import java.awt.Color;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Line2D.Float;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -86,9 +86,6 @@ public class Game extends PApplet {
 			// Collide
 			doCollisions(player, singleplayer);
 
-			// Vis checks
-			doVisCheck(player, singleplayer.getEntities());
-
 			// Act
 			player.act();
 			singleplayer.act();
@@ -102,6 +99,9 @@ public class Game extends PApplet {
 			// Draw
 			singleplayer.draw(this);
 			player.draw(this);
+
+			// Vis checks
+			doVisCheck(player, singleplayer.getEntities());
 		}
 
 	}
@@ -119,24 +119,58 @@ public class Game extends PApplet {
 		}
 
 		for (Entity t : targets) {
-			// Get the line from source to target
+			List<Line2D> lines = new ArrayList<>();
 
+			// Best code don't @ me
+			// Upper left
 			Line2D line = new Line2D.Float();
-
 			line.setLine(source.getX(), source.getY(), t.getX(), t.getY());
+			lines.add(line);
+			// Upper right
+			Line2D line2 = new Line2D.Float();
+			line2.setLine(source.getX() + source.getWidth(), source.getY(), t.getX() + t.getWidth(), t.getY());
+			lines.add(line2);
+			// Lower left
+			Line2D line3 = new Line2D.Float();
+			line3.setLine(source.getX(), source.getY() + source.getHeight(), t.getX(), t.getY() + t.getHeight());
+			lines.add(line3);
+			// Lower right
+			Line2D line4 = new Line2D.Float();
+			line4.setLine(source.getX() + source.getWidth(), source.getY() + source.getHeight(),
+					t.getX() + t.getWidth(), t.getY() + t.getHeight());
+			lines.add(line4);
+			// Center
+			Line2D line5 = new Line2D.Float();
+			line5.setLine(source.getX() + source.getWidth() / 2, source.getY() + source.getHeight() / 2,
+					t.getX() + t.getWidth() / 2, t.getY() + t.getHeight() / 2);
+			lines.add(line5);
 
-			t.setVisible(true);
+			boolean vis = false;
 
 			for (Entity o : obstructions) {
-				for (Line2D seg : o.getSegments()) {
-					Point2D p = getLineIntersection(line, seg);
+				for (Line2D l : lines) {
+				
+					boolean collide = false;
+					for (Line2D seg : o.getSegments()) {
+						Point2D p = getLineIntersection(l, seg);
 
-					if (p != null) {
-						t.setVisible(false);
+						if (p != null) 
+							collide = true;
+						
 					}
+					
+					if(!collide) {
+						this.stroke(100, 255, 100);
+						vis = true;
+					} else {
+						this.stroke(255, 100, 100);
+					}
+					
+					this.line((float) l.getX1(), (float) l.getY1(), (float) l.getX2(), (float) l.getY2());
 				}
 			}
 
+			t.setVisible(vis);
 		}
 
 	}
@@ -260,10 +294,10 @@ public class Game extends PApplet {
 			// Collide local player with walls and players
 			// TODO: This is really bad collision, someone fix it lol
 			for (Entity e : entities) {
-				
-				if(e instanceof Zombie)
+
+				if (e instanceof Zombie)
 					continue;
-				
+
 				for (Line2D pl : player.getSegments()) {
 					if (pl.intersects(e.getRect())) {
 						player.lineCollided(pl);
