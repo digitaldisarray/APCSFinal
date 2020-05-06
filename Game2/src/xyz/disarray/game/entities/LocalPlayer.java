@@ -31,8 +31,6 @@ public class LocalPlayer extends Entity {
 
 	@Override
 	public void act() {
-		
-		
 		if (right != left) {
 			if (Math.abs(vx) + SPEED < MAX_VELOCITY) {
 				if (right)
@@ -103,7 +101,7 @@ public class LocalPlayer extends Entity {
 		if (clicked)
 			if (cooldown <= 0) {
 				shoot(g.mouseX, g.mouseY);
-				cooldown = 20;
+				cooldown = 50;
 			}
 
 		if (cooldown > 0)

@@ -1,13 +1,12 @@
 package xyz.disarray.game.entities;
 
-import java.awt.Color;
-
 import processing.core.PApplet;
+import xyz.disarray.game.Game;
 
 public class Wall extends Entity {
 
-	public Wall(int x, int y, int width, int height, Color color) {
-		super(x, y, width, height, color);
+	public Wall(int x, int y, int width, int height) {
+		super(x, y, width, height, Game.GREY);
 	}
 
 	@Override
@@ -19,7 +18,8 @@ public class Wall extends Entity {
 	public void draw(PApplet g) {
 		g.pushMatrix();
 		
-		g.stroke(getColor().getRGB());
+		g.stroke(255);
+		g.fill(getColor().getRGB());
 		g.rect(getX(), getY(), getWidth(), getHeight());
 		
 		g.popMatrix();

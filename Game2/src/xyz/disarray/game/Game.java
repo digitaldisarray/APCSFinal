@@ -52,7 +52,7 @@ public class Game extends PApplet {
 	}
 
 	public void draw() {
-		background(200);
+		background(180, 180, 180);
 
 		if (state == GameState.MENU)
 			menu.draw(this);
@@ -96,16 +96,31 @@ public class Game extends PApplet {
 				state = GameState.MENU;
 			}
 
-			// Draw
-			singleplayer.draw(this);
-			player.draw(this);
 
 			// Vis checks
 			doVisCheck(player, singleplayer.getEntities());
+			
+			// Draw
+			singleplayer.draw(this);
+			player.draw(this);
 		}
 
 	}
 
+	/**
+	 * This method takes a source entity and a list of entities in the game, and then hides the entities that are behind walls relative to the source.
+	 * 
+	 * Steps:
+	 *  - Separate the obstructions (Walls) from the targets (Zombies & Enemy Players)
+	 *  - Go to every target and:
+	 *  	- Get all of the lines from the source to the target
+	 *  	- Go to every obstruction and:
+	 *  		- See if any of the lines from source to target don't intersect with an obsturction
+	 *  	- If at least one line was not obstructed, set target to be visible
+	 * 
+	 * @param source - The entity that all visibility checks will be done relative to
+	 * @param entities - The entities currently present in the game (only need walls, zombies, and enemies)
+	 */
 	private void doVisCheck(Entity source, ArrayList<Entity> entities) {
 		ArrayList<Entity> obstructions = new ArrayList<>();
 		ArrayList<Entity> targets = new ArrayList<>();
@@ -156,7 +171,6 @@ public class Game extends PApplet {
 
 						if (p != null) 
 							collide = true;
-						
 					}
 					
 					if(!collide) {
@@ -176,11 +190,14 @@ public class Game extends PApplet {
 	}
 
 	public void mousePressed() {
+		// Mouse clicking logic for while we are in the menu
 		if (state == GameState.MENU) {
 			int code = menu.clickMouse(mouseX, mouseY);
 
 			/*
-			 * 0 - Singleplayer 1 - Multiplayer 2 - Options
+			 * 0 - Singleplayer button clicked
+			 * 1 - Multiplayer button clicked
+			 * 2 - Options button clicked
 			 */
 
 			switch (code) {
