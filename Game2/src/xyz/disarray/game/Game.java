@@ -91,18 +91,16 @@ public class Game extends PApplet {
 			singleplayer.act();
 
 			if (player.getHealth() <= 0) {
-
 				JOptionPane.showMessageDialog(null, "Printing complete");
 				state = GameState.MENU;
 			}
-
-
-			// Vis checks
-			doVisCheck(player, singleplayer.getEntities());
 			
 			// Draw
 			singleplayer.draw(this);
 			player.draw(this);
+			
+			// Vis checks
+			doVisCheck(player, singleplayer.getEntities());
 		}
 
 	}

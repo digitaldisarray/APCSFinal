@@ -60,7 +60,7 @@ public class Zombie extends Entity {
 			if(playerX == getX())
 				vx = 0;
 
-			//move(vx, vy);
+			move(vx, vy);
 
 			if (cup)
 				vy = FRICTION;
@@ -74,7 +74,7 @@ public class Zombie extends Entity {
 			if (cright)
 				vx = -FRICTION;
 
-			//move(vx, vy);
+			move(vx, vy);
 
 			if (vx < 0)
 				vx += FRICTION;

@@ -1,6 +1,5 @@
 package xyz.disarray.game.screens;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
