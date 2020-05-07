@@ -2,8 +2,6 @@ package xyz.disarray.game.backgrounds;
 
 import java.util.ArrayList;
 
-// TODO: Be able to get a random background
-
 public class BackgroundManager {
 	
 	private ArrayList<Background> backgrounds = new ArrayList<>();
@@ -12,6 +10,7 @@ public class BackgroundManager {
 	public BackgroundManager() {
 		backgrounds.add(new Wave());
 		backgrounds.add(new Man());
+		backgrounds.add(new CellsInterlinked());
 		
 		for(Background b : backgrounds)
 			b.setup();

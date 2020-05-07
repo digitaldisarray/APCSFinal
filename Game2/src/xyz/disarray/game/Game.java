@@ -57,14 +57,14 @@ public class Game extends PApplet {
 		surface.setResizable(false);
 		
 		bManager = new BackgroundManager();
-		
+
+		bManager.newBackground();
 		man = loadImage("res/img/man.png");
 	}
 
 	public void draw() {
 		background(180, 180, 180);
 		bManager.getBackground().draw(this);
-		bManager.newBackground();
 
 		if (state == GameState.MENU)
 			menu.draw(this);
