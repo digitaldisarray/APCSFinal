@@ -4,18 +4,13 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import processing.core.PImage;
 import xyz.disarray.game.screens.components.Button;
 
 public class MainMenu {
 
 	private ArrayList<Button> buttons = new ArrayList<>();
 	
-	private PImage background;
-	
 	public MainMenu(PApplet g) {
-		background = g.loadImage("res/img/pod1.png");
-		
 		// This entire button system is bad but it works
 		buttons.add(new Button("Singleplayer"));
 		buttons.add(new Button("Multiplayer"));
@@ -24,9 +19,6 @@ public class MainMenu {
 
 	public void draw(PApplet g) {
 		g.rectMode(PConstants.CORNER);
-		
-		// Background
-		g.image(background, 0, 0, g.width, g.height);
 		
 		// Meme logo (delete before final version)
 		g.textSize(50);

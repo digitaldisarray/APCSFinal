@@ -9,6 +9,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import processing.core.PApplet;
+import processing.core.PImage;
+import xyz.disarray.game.backgrounds.BackgroundManager;
 import xyz.disarray.game.entities.Bullet;
 import xyz.disarray.game.entities.Entity;
 import xyz.disarray.game.entities.LocalPlayer;
@@ -27,6 +29,9 @@ public class Game extends PApplet {
 	public static final Color BAD = new Color(255, 40, 40);
 	public static final Color GREY = new Color(100, 100, 100);
 	public static final Color DARK_GREY = new Color(50, 50, 50);
+	
+	// Storing here because I don't want to make an ImageManager class
+	public static PImage man;
 
 	// The instance of our main menu, might want to reconsider how we handle menus
 	private MainMenu menu;
@@ -36,6 +41,7 @@ public class Game extends PApplet {
 	// how to do epic code like an epic coder make eveyrhting public static
 	public static LocalPlayer player; // The local player (shared across multiplayer and single player)
 	private GameState state; // What state of the game we are currently on
+	private BackgroundManager bManager;
 
 	private enum GameState {
 		MENU, SINGLEPLAYER, MUTLIPLAYER
@@ -49,10 +55,16 @@ public class Game extends PApplet {
 		state = GameState.MENU;
 		surface.setSize(800, 600);
 		surface.setResizable(false);
+		
+		bManager = new BackgroundManager();
+		
+		man = loadImage("res/img/man.png");
 	}
 
 	public void draw() {
 		background(180, 180, 180);
+		bManager.getBackground().draw(this);
+		bManager.newBackground();
 
 		if (state == GameState.MENU)
 			menu.draw(this);

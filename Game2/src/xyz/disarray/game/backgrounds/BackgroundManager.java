@@ -1,11 +1,29 @@
 package xyz.disarray.game.backgrounds;
 
+import java.util.ArrayList;
 
 // TODO: Be able to get a random background
 
 public class BackgroundManager {
 	
+	private ArrayList<Background> backgrounds = new ArrayList<>();
+	private int index;
+	
 	public BackgroundManager() {
-
+		backgrounds.add(new Wave());
+		backgrounds.add(new Man());
+		
+		for(Background b : backgrounds)
+			b.setup();
+		
+		index = 0;
+	}
+	
+	public void newBackground() {
+		index = (int) (Math.random() * backgrounds.size());
+	}
+	
+	public Background getBackground() {
+		return backgrounds.get(index);
 	}
 }

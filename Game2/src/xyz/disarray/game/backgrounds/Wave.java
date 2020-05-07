@@ -10,7 +10,7 @@ import processing.core.PConstants;
  * 
  */
 
-public class Geometric extends Background {
+public class Wave extends Background {
 
 	private float t;
 	private float theta;

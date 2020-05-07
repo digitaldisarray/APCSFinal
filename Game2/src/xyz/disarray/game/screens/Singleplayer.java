@@ -3,8 +3,6 @@ package xyz.disarray.game.screens;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
-import xyz.disarray.game.backgrounds.Background;
-import xyz.disarray.game.backgrounds.Geometric;
 import xyz.disarray.game.entities.Entity;
 import xyz.disarray.game.entities.Wall;
 import xyz.disarray.game.entities.Zombie;
@@ -12,9 +10,6 @@ import xyz.disarray.game.entities.Zombie;
 public class Singleplayer {
 
 	private ArrayList<Entity> entities;
-	
-	// Current game background
-	private Background background;
 
 	public Singleplayer() {
 		entities = new ArrayList<>();
@@ -23,9 +18,6 @@ public class Singleplayer {
 
 		// TODO: Get walls from map loader and add to entities
 
-		// TODO: Use the background manager later, following lines are for testing only
-		background = new Geometric();
-		background.setup();
 	}
 
 	public void act() {
@@ -34,7 +26,6 @@ public class Singleplayer {
 	}
 
 	public void draw(PApplet g) {
-		background.draw(g);
 		for (Entity entity : entities)
 			entity.draw(g);
 	}
