@@ -7,7 +7,7 @@ import xyz.disarray.game.util.Vector2D;
 
 public class CellsInterlinked extends Background {
 
-	ArrayList<Vector2D> vecs;
+	private ArrayList<Vector2D> vecs;
 
 	@Override
 	public void setup() {
@@ -48,7 +48,8 @@ public class CellsInterlinked extends Background {
 			if(newY < -3 || newY >= 600)
 				newY = Math.random() * 600;
 			
-			vecs.set(i, new Vector2D(newX, newY));
+			vecs.get(i).setX(newX);
+			vecs.get(i).setY(newY);
 		}
 	}
 
