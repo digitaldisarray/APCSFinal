@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 public class BackgroundManager {
 	
+	/*
+	 * Potential changes:
+	 * - Only image backgrounds when in a menu
+	 * - Mode in settings to disable/enable not serious backgrounds
+	 */
+	
 	private ArrayList<Background> backgrounds = new ArrayList<>();
 	private int index;
 	

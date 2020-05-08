@@ -107,8 +107,8 @@ public class Zombie extends Entity {
 
 		g.noStroke();
 		g.fill(getColor().getRGB());
-		g.ellipseMode(PConstants.CORNER);
-		g.ellipse(getX(), getY(), getWidth(), getHeight());
+		g.rectMode(PConstants.CORNER);
+		g.rect(getX(), getY(), getWidth(), getHeight());
 
 		g.popMatrix();
 
