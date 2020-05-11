@@ -1,5 +1,6 @@
 package xyz.disarray.game.entities;
 
+import java.awt.Color;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
@@ -184,4 +185,4 @@ public class LocalPlayer extends Entity {
 		bullets.remove(bullets.indexOf(e));
 	}
 	
-}
+	}

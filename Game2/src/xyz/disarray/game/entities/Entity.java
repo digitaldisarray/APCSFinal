@@ -57,6 +57,10 @@ public abstract class Entity {
 	public Color getColor() {
 		return color;
 	}
+	
+	public void setColor(Color color) {
+		this.color = color;
+	}
 
 	public void remove() {
 		shouldRemove = true;

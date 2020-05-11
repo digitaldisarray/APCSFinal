@@ -17,6 +17,7 @@ import xyz.disarray.game.entities.LocalPlayer;
 import xyz.disarray.game.entities.RayBullet;
 import xyz.disarray.game.entities.Wall;
 import xyz.disarray.game.entities.Zombie;
+import xyz.disarray.game.screens.Colors;
 import xyz.disarray.game.screens.MainMenu;
 import xyz.disarray.game.screens.Screen;
 import xyz.disarray.game.screens.Settings;
@@ -43,7 +44,7 @@ public class Game extends PApplet {
 	private BackgroundManager bManager;
 
 	private enum ScreenState {
-		MENU, SINGLEPLAYER, MUTLIPLAYER, SETTINGS
+		MENU, SINGLEPLAYER, MUTLIPLAYER, SETTINGS, COLORS
 	}
 
 	public void setup() {
@@ -62,6 +63,7 @@ public class Game extends PApplet {
 	}
 
 	public void draw() {
+		System.out.println(state);
 		background(180, 180, 180);
 		bManager.getBackground().draw(this);
 
@@ -224,13 +226,13 @@ public class Game extends PApplet {
 				break;
 			case 2:
 				player = null;
-				screen = new Settings();
+				screen = new Settings(System.currentTimeMillis());
 				state = ScreenState.SETTINGS;
 				break;
 			}
 		}
 		
-		if(state == ScreenState.SETTINGS) {
+		else if(state == ScreenState.SETTINGS) {
 			/*
 			 * 0 - Return
 			 * 1 - Rando colors
@@ -245,8 +247,22 @@ public class Game extends PApplet {
 				bad = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
 				grey = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
 				darkGrey = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
+			case 2:
+				screen = new Colors();
+				state = ScreenState.COLORS;
+				
 			}
 		}
+		
+		if(state == ScreenState.COLORS) {
+			
+			switch(code) {
+			case 1:
+				screen = new MainMenu();
+				state = ScreenState.MENU;
+			}
+		}
+		
 
 	}
 
@@ -410,6 +426,10 @@ public class Game extends PApplet {
 		} else {
 			return null;
 		}
+	}
+	
+	public ScreenState getState() {
+		return state;
 	}
 
 }
