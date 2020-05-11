@@ -72,7 +72,9 @@ LocalPlayer - The local player
 RayBullet - A ray casted bullet
 Wall - A wall
 Zombie - A Zombie
+Screen - Represents a screen
 MainMenu - The main menu
+Settings - The settings screen
 Singleplayer - Single player instance (keeps track of entities)
 Button - A button
 Colors - Global color values
