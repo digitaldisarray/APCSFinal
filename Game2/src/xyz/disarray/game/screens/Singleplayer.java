@@ -7,7 +7,7 @@ import xyz.disarray.game.entities.Entity;
 import xyz.disarray.game.entities.Wall;
 import xyz.disarray.game.entities.Zombie;
 
-public class Singleplayer {
+public class Singleplayer extends Screen {
 
 	private ArrayList<Entity> entities;
 
@@ -20,7 +20,7 @@ public class Singleplayer {
 
 	}
 
-	public void act() {
+	public void update() {
 		for (Entity entity : entities)
 			entity.act();
 	}

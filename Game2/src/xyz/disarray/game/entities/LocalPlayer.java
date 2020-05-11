@@ -24,7 +24,7 @@ public class LocalPlayer extends Entity {
 	private ArrayList<Entity> bullets;
 
 	public LocalPlayer(int x, int y) {
-		super(x, y, 25, Game.GOOD);
+		super(x, y, 25, Game.good);
 		cooldown = 0;
 		bullets = new ArrayList<>();
 	}

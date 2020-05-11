@@ -18,7 +18,7 @@ public class Zombie extends Entity {
 	public static final int ATTACK_COOLDOWN = 100, MOVE_COOLDOWN = 3;
 
 	public Zombie(int x, int y) {
-		super(x, y, 25, Game.BAD);
+		super(x, y, 25, Game.bad);
 		attackCooldown = ATTACK_COOLDOWN;
 		moveCooldown = MOVE_COOLDOWN;
 	}
@@ -31,6 +31,7 @@ public class Zombie extends Entity {
 		if (moveCooldown > 0)
 			moveCooldown--;
 
+		// TODO: fix this cause we draw and do collisions from corners of the rects and stuff
 		double dst = Math.sqrt(Math.pow(Math.abs(Game.player.getX() - getX()), 2)
 				+ Math.pow(Math.abs(Game.player.getY() - getY()), 2));
 

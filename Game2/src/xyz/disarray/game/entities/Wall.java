@@ -6,7 +6,7 @@ import xyz.disarray.game.Game;
 public class Wall extends Entity {
 
 	public Wall(int x, int y, int width, int height) {
-		super(x, y, width, height, Game.GREY);
+		super(x, y, width, height, Game.grey);
 	}
 
 	@Override
