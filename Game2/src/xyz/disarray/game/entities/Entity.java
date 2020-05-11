@@ -7,10 +7,11 @@ import java.awt.geom.Rectangle2D;
 import processing.core.PApplet;
 
 public abstract class Entity {
-	private int x, y, width, height, health;
+	private int x, y, width, height, health, damage;
 	private Color color;
 	private boolean shouldRemove;
 	private boolean visible;
+	
 	
 
 	public Entity(int x, int y, int width, Color color) {
@@ -119,6 +120,18 @@ public abstract class Entity {
 	
 	public int getHealth() {
 		return health;
+	}
+	
+	public void setHealth(int health) {
+		this.health = health;
+	}
+	
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+	
+	public int getDamage() {
+		return damage;
 	}
 	
 }

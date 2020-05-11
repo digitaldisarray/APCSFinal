@@ -13,6 +13,7 @@ import xyz.disarray.game.screens.components.Button;
 public class Colors extends Screen {
 
 	private ArrayList<Button> buttons = new ArrayList<>();
+	private Color[] colors = new Color[4];
 
 	public Colors() {
 		buttons.add(new Button("Set player color"));
@@ -23,6 +24,16 @@ public class Colors extends Screen {
 
 		buttons.add(new Button("Go back"));
 
+		for (int i = 0; i < 4; i++) {
+			int r = ((int) (Math.random() * 255));
+			int g = ((int) (Math.random() * 255));
+
+			int b = ((int) (Math.random() * 255));
+
+			colors[i] = new Color(r, g, b);
+
+		}
+
 	}
 
 	public void draw(PApplet g) {
@@ -31,12 +42,12 @@ public class Colors extends Screen {
 		float height = g.height;
 		float width = g.width;
 
-		buttons.get(0).draw(g, width / 7, height / 2 + height / 10, width / 7, height / 10);
-		buttons.get(1).draw(g, 3 * (width / 7), height / 2 + height / 10, width / 7, height / 10);
+		buttons.get(0).draw(g, width / 7, height / 2 + height / 10, width / 7, height / 10, colors[0]);
+		buttons.get(1).draw(g, 3 * (width / 7), height / 2 + height / 10, width / 7, height / 10, colors[1]);
 
-		buttons.get(2).draw(g, 5 * (width / 7), height / 2 + height / 10, width / 7, height / 10);
+		buttons.get(2).draw(g, 5 * (width / 7), height / 2 + height / 10, width / 7, height / 10, colors[2]);
 
-		buttons.get(3).draw(g, 3 * (width / 7), height / 2 + 3* (height / 10), width / 7, height / 10);
+		buttons.get(3).draw(g, 3 * (width / 7), height / 2 + 3 * (height / 10), width / 7, height / 10, colors[3]);
 	}
 
 	// This entire button system is bad but it works
@@ -45,8 +56,11 @@ public class Colors extends Screen {
 		for (int i = 0; i < buttons.size(); i++)
 			if (buttons.get(i).isPointInside(x, y))
 				clicked = buttons.get(i).getName();
+		if (clicked == null) {
+			return -1;
+		}
 
-		if (clicked.equals("Set player color")) {
+		else if (clicked.equals("Set player color")) {
 			Color playerColor = createColor();
 			Game.good = playerColor;
 		}
@@ -58,8 +72,7 @@ public class Colors extends Screen {
 		else if (clicked.equals("Set enemy color")) {
 			Color badColor = createColor();
 			Game.bad = badColor;
-		}
-		else if (clicked.equals("Go back")) {
+		} else if (clicked.equals("Go back")) {
 			return 1;
 		}
 

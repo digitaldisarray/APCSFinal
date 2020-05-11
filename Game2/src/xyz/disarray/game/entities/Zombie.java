@@ -14,24 +14,32 @@ public class Zombie extends Entity {
 	private double vx, vy;
 	private final int FRICTION = 2;
 	private boolean cright, cleft, cup, cdown;
-	
+
 	public static final int ATTACK_COOLDOWN = 100, MOVE_COOLDOWN = 3;
 
 	public Zombie(int x, int y) {
 		super(x, y, 25, Game.bad);
 		attackCooldown = ATTACK_COOLDOWN;
 		moveCooldown = MOVE_COOLDOWN;
+		setHealth(10);
+		setDamage(ATTACK_DAMAGE);
 	}
 
 	@Override
 	public void act() {
+		
+		if(getHealth() <= 0)
+			remove();
+		
+		
 		if (attackCooldown > 0)
 			attackCooldown--;
 
 		if (moveCooldown > 0)
 			moveCooldown--;
 
-		// TODO: fix this cause we draw and do collisions from corners of the rects and stuff
+		// TODO: fix this cause we draw and do collisions from corners of the rects and
+		// stuff
 		double dst = Math.sqrt(Math.pow(Math.abs(Game.player.getX() - getX()), 2)
 				+ Math.pow(Math.abs(Game.player.getY() - getY()), 2));
 
@@ -54,11 +62,11 @@ public class Zombie extends Entity {
 
 			if (playerY < getY())
 				vy = -1;
-			
-			if(playerY == getY())
+
+			if (playerY == getY())
 				vy = 0;
-			
-			if(playerX == getX())
+
+			if (playerX == getX())
 				vx = 0;
 
 			move(vx, vy);
@@ -94,7 +102,7 @@ public class Zombie extends Entity {
 			cleft = false;
 			cup = false;
 			cdown = false;
-			
+
 			moveCooldown = MOVE_COOLDOWN;
 		}
 	}
@@ -117,7 +125,7 @@ public class Zombie extends Entity {
 
 	public void collide(Entity e) {
 		if (e instanceof Bullet || e instanceof RayBullet)
-			remove();
+			setHealth(getHealth() - e.getDamage());
 	}
 
 	public void lineCollided(Line2D line) {

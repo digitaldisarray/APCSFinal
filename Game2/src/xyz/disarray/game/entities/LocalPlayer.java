@@ -11,14 +11,14 @@ import xyz.disarray.game.Game;
 public class LocalPlayer extends Entity {
 
 	private int vx, vy;
-	private final int SPEED = 2;
+	private final int SPEED;
 	private final int FRICTION = 2;
-	private final int MAX_VELOCITY = 6;
+	private final int MAX_VELOCITY;
 	private boolean cright, cleft, cup, cdown;
 	private boolean right, left, up, down;
 	private boolean clicked;
-	private int cooldown; 	// Time in between shots fired for gun
-
+	private int cooldown;
+	// Time in between shots fired for gun
 
 	// If we use only ray casted bullets, we can only have one active bullet at a
 	// time, and dont need an array list
@@ -28,6 +28,20 @@ public class LocalPlayer extends Entity {
 		super(x, y, 25, Game.good);
 		cooldown = 0;
 		bullets = new ArrayList<>();
+		SPEED = 2;
+		MAX_VELOCITY = 3 * SPEED;
+		setDamage(5);
+
+	}
+
+	public LocalPlayer(int x, int y, int damage, int moveSpeed, int health) {
+		super(x, y, 25, Game.good);
+		cooldown = 0;
+		bullets = new ArrayList<>();
+		SPEED = moveSpeed;
+		MAX_VELOCITY = 3 * SPEED;
+		setHealth(health);
+		setDamage(damage);
 	}
 
 	@Override
@@ -50,7 +64,8 @@ public class LocalPlayer extends Entity {
 				else
 					vy += SPEED;
 			} else {
-				vy = MAX_VELOCITY * (vy / Math.abs(vy));
+				if (vy != 0)
+					vy = MAX_VELOCITY * (vy / Math.abs(vy));
 			}
 		}
 
@@ -118,6 +133,12 @@ public class LocalPlayer extends Entity {
 	public void shoot(int x2, int y2) {
 		// TODO: Remove this debug var eventually
 		boolean rayTraced = true;
+		
+		System.out.println("Health: " + getHealth());
+		System.out.println("Damage: " +getDamage());
+		System.out.println("Speed: " + SPEED);
+
+		
 
 		if (rayTraced) {
 			double mouseAngle = Math.abs(Math.toDegrees(Math.atan2(y2 - getY(), x2 - getX())));
@@ -128,7 +149,7 @@ public class LocalPlayer extends Entity {
 				else
 					mouseAngle = 360 - mouseAngle;
 
-			bullets.add(new RayBullet(getX() + getWidth() / 2, getY() + getHeight() / 2, mouseAngle, 1000));
+			bullets.add(new RayBullet(getX() + getWidth() / 2, getY() + getHeight() / 2, mouseAngle, 1000, getDamage()));
 
 		} else {
 			// Radians
@@ -184,5 +205,5 @@ public class LocalPlayer extends Entity {
 	public void removeBullet(Entity e) {
 		bullets.remove(bullets.indexOf(e));
 	}
-	
-	}
+
+}

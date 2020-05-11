@@ -14,12 +14,13 @@ public class Settings extends Screen {
 	private long startTimeMillis;
 
 	// TODO: Add settings that are actually useful? (big maybe)
-	public Settings(long currentTimeMillis) {
+	public Settings() {
 		buttons.add(new Button("return; <-- Comedy"));
 		buttons.add(new Button("Randomize Colors"));
 		buttons.add(new Button("Choose Colors"));
+		buttons.add(new Button("Choose Class"));
 
-		startTimeMillis = currentTimeMillis;
+
 	}
 
 	public void draw(PApplet g) {
@@ -52,6 +53,8 @@ public class Settings extends Screen {
 			
 			if (clicked.equals("Choose Colors"))
 				return 2;
+			if (clicked.equals("Choose Class"))
+				return 3;
 
 		
 		return -1;

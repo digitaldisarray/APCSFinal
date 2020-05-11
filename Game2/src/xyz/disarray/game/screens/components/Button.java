@@ -41,29 +41,31 @@ public class Button {
 		g.stroke(0);
 		g.rect(currentX, currentY, currentWidth, currentHeight, 4);
 	}
-	
-	public void draw(PApplet g, float x, float y, float width, float height) {
+
+	public void draw(PApplet g, float x, float y, float width, float height, Color color) {
 		currentWidth = width;
 		currentHeight = height;
 		currentX = x;
 		currentY = y;
 
 		// Draw button background
-		g.fill(100);
+		g.fill(color.getRed(), color.getGreen(), color.getBlue());
 		g.noStroke();
 		g.rect(currentX, currentY, currentWidth, currentHeight);
 
 		// Draw text
 		g.fill(0);
-		g.textAlign(PConstants.LEFT, PConstants.TOP);
-		g.text(text, currentX, y + 4);
+		
+		float startX =currentX + (currentWidth - g.textWidth(text)) / 2;
+
+		g.text(text, startX, currentY + currentHeight / 3, g.textWidth(text));
+		//g.text(text, currentX, y + 4);
 
 		// Draw border
 		g.noFill();
 		g.stroke(0);
 		g.rect(currentX, currentY, currentWidth, currentHeight, 4);
 	}
-
 
 	public boolean isPointInside(int x, int y) {
 		if (y >= currentY && y <= currentY + currentHeight)

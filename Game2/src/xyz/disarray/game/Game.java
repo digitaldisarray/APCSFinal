@@ -20,6 +20,7 @@ import xyz.disarray.game.entities.Zombie;
 import xyz.disarray.game.screens.Colors;
 import xyz.disarray.game.screens.MainMenu;
 import xyz.disarray.game.screens.Screen;
+import xyz.disarray.game.screens.SelectClass;
 import xyz.disarray.game.screens.Settings;
 import xyz.disarray.game.screens.Singleplayer;
 
@@ -31,6 +32,9 @@ public class Game extends PApplet {
 	public static Color bad = new Color(255, 40, 40);
 	public static Color grey = new Color(100, 100, 100);
 	public static Color darkGrey = new Color(50, 50, 50);
+	
+	public static int moveSpeed, damage, health;
+	public static final int DEF_SPEED = 2, DEF_DAMAGE = 5, DEF_HEALTH = 100;
 
 	// Storing here because I don't want to make an ImageManager class
 	public static PImage man;
@@ -44,7 +48,7 @@ public class Game extends PApplet {
 	private BackgroundManager bManager;
 
 	private enum ScreenState {
-		MENU, SINGLEPLAYER, MUTLIPLAYER, SETTINGS, COLORS
+		MENU, SINGLEPLAYER, MUTLIPLAYER, SETTINGS, COLORS, SELECTCLASS
 	}
 
 	public void setup() {
@@ -60,10 +64,14 @@ public class Game extends PApplet {
 
 		bManager.newBackground();
 		man = loadImage("res/img/man.png");
+		moveSpeed = DEF_SPEED;
+		damage = DEF_DAMAGE;
+		health = DEF_HEALTH;
+		
 	}
 
 	public void draw() {
-		System.out.println(state);
+		//System.out.println(state);
 		background(180, 180, 180);
 		bManager.getBackground().draw(this);
 
@@ -218,7 +226,7 @@ public class Game extends PApplet {
 			 */
 			switch (code) {
 			case 0:
-				player = new LocalPlayer(50, 50);
+				player = new LocalPlayer(50, 50, damage, moveSpeed, health);
 				screen = new Singleplayer();
 				state = ScreenState.SINGLEPLAYER;
 				break;
@@ -226,7 +234,7 @@ public class Game extends PApplet {
 				break;
 			case 2:
 				player = null;
-				screen = new Settings(System.currentTimeMillis());
+				screen = new Settings();
 				state = ScreenState.SETTINGS;
 				break;
 			}
@@ -250,17 +258,28 @@ public class Game extends PApplet {
 			case 2:
 				screen = new Colors();
 				state = ScreenState.COLORS;
+			case 3: 
+				screen = new SelectClass();
+				state = ScreenState.SELECTCLASS;
 				
 			}
 		}
 		
-		if(state == ScreenState.COLORS) {
+		else if(state == ScreenState.COLORS) {
 			
 			switch(code) {
 			case 1:
-				screen = new MainMenu();
-				state = ScreenState.MENU;
+				screen = new Settings();
+				state = ScreenState.SETTINGS;
 			}
+		}else if (state == ScreenState.SELECTCLASS) {
+			
+			switch(code) {
+			case 1:
+				screen = new Settings();
+				state = ScreenState.SETTINGS;
+			}
+			
 		}
 		
 

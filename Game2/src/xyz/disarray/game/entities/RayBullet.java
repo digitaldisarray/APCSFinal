@@ -18,6 +18,13 @@ public class RayBullet extends Entity {
 		endpointChecked = false;
 	}
 
+	public RayBullet(int x, int y, double angle, int length, int damage) {
+		this(x, y, x + (int) (Math.cos(Math.toRadians(angle)) * length + .5),
+				y - (int) (Math.sin(Math.toRadians(angle)) * length + .5));
+		endpointChecked = false;
+		setDamage(damage);
+	}
+
 	public RayBullet(int x, int y, int x2, int y2) {
 		super(x, y, 0, Game.getBulletColor());
 		this.x2 = x2;
@@ -35,7 +42,8 @@ public class RayBullet extends Entity {
 
 	@Override
 	public void draw(PApplet g) {
-		// For some reason the draw method is called before it is resized so we have this
+		// For some reason the draw method is called before it is resized so we have
+		// this
 		if (endpointChecked) {
 			g.pushMatrix();
 
