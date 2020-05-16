@@ -9,7 +9,7 @@ import xyz.disarray.game.entities.Wall;
 import xyz.disarray.game.entities.Zombie;
 
 public class Singleplayer extends Screen {
-	public static final double ZOMBIE_SPAWN_RATE = 0.002;
+	public static final double ZOMBIE_SPAWN_RATE = 0.003;
 	private ArrayList<Entity> entities;
 	private ArrayList<Wall> walls;
 	private LocalPlayer p;
