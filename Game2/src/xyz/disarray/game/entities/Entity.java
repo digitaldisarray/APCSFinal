@@ -133,5 +133,13 @@ public abstract class Entity {
 	public int getDamage() {
 		return damage;
 	}
+
+	public void drawHealthBar(PApplet draw, float healthI) {
+		draw.pushStyle();
+		
+		draw.fill(0,255,0);
+		draw.rect(x, y-10, 30 * health / healthI, 4);
+		draw.popStyle();
+	}
 	
 }

@@ -28,8 +28,10 @@ public class Zombie extends Entity {
 	@Override
 	public void act() {
 		
-		if(getHealth() <= 0)
+		if(getHealth() <= 0) {
 			remove();
+			
+		}
 		
 		
 		if (attackCooldown > 0)
@@ -109,16 +111,15 @@ public class Zombie extends Entity {
 
 	@Override
 	public void draw(PApplet g) {
-		if (!isVisible()) {
-			return;
-		}
 		g.pushMatrix();
 
 		g.noStroke();
 		g.fill(getColor().getRGB());
 		g.rectMode(PConstants.CORNER);
 		g.rect(getX(), getY(), getWidth(), getHeight());
-
+		
+		drawHealthBar(g,10);
+		
 		g.popMatrix();
 
 	}

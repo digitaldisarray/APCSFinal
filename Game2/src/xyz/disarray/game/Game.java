@@ -203,7 +203,7 @@ public class Game extends PApplet {
 						this.stroke(255, 100, 100);
 					}
 
-					this.line((float) l.getX1(), (float) l.getY1(), (float) l.getX2(), (float) l.getY2());
+				//	this.line((float) l.getX1(), (float) l.getY1(), (float) l.getX2(), (float) l.getY2());
 				}
 			}
 
@@ -227,7 +227,7 @@ public class Game extends PApplet {
 			switch (code) {
 			case 0:
 				player = new LocalPlayer(50, 50, damage, moveSpeed, health);
-				screen = new Singleplayer();
+				screen = new Singleplayer(player);
 				state = ScreenState.SINGLEPLAYER;
 				break;
 			case 1:

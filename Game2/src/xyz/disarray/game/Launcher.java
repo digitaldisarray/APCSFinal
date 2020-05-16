@@ -42,9 +42,10 @@ public class Launcher {
 				window.setResizable(false);
 			}
 		});
-
+		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 		canvas.requestFocus();
+		
 	}
 	
 	/**

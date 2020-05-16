@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PFont;
 import xyz.disarray.game.Game;
 
 public class LocalPlayer extends Entity {
@@ -18,6 +19,7 @@ public class LocalPlayer extends Entity {
 	private boolean right, left, up, down;
 	private boolean clicked;
 	private int cooldown;
+	private int kills;
 	// Time in between shots fired for gun
 
 	// If we use only ray casted bullets, we can only have one active bullet at a
@@ -30,6 +32,7 @@ public class LocalPlayer extends Entity {
 		bullets = new ArrayList<>();
 		SPEED = 2;
 		MAX_VELOCITY = 3 * SPEED;
+		kills = 0;
 		setDamage(5);
 
 	}
@@ -109,6 +112,10 @@ public class LocalPlayer extends Entity {
 	public void draw(PApplet g) {
 		g.pushMatrix();
 
+		g.fill(255);
+		g.textSize(20);
+		g.text("Kills: " + kills,5,5 );
+		
 		g.noStroke();
 		g.fill(getColor().getRGB());
 		g.rectMode(PConstants.CORNER);
@@ -122,9 +129,10 @@ public class LocalPlayer extends Entity {
 
 		if (cooldown > 0)
 			cooldown--;
+		
+		drawHealthBar(g,100);
 
 		g.popMatrix();
-
 		for (Entity b : bullets)
 			b.draw(g);
 
@@ -206,4 +214,11 @@ public class LocalPlayer extends Entity {
 		bullets.remove(bullets.indexOf(e));
 	}
 
+	public void addKill() {
+		kills++;
+	}
+	
+	public int getKills() {
+		return kills;
+	}
 }

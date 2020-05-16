@@ -15,8 +15,8 @@ public class BackgroundManager {
 	
 	public BackgroundManager() {
 		backgrounds.add(new Wave());
-		backgrounds.add(new Man());
-		backgrounds.add(new CellsInterlinked());
+	//	backgrounds.add(new Man());
+		//backgrounds.add(new CellsInterlinked());
 		
 		for(Background b : backgrounds)
 			b.setup();
