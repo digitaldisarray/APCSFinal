@@ -44,7 +44,8 @@ public class Game extends PApplet {
 
 	// how to do epic code like an epic coder make eveyrhting public static
 	public static LocalPlayer player; // The local player (shared across multiplayer and single player)
-	private ScreenState state; // What state of the game we are currently on
+	// public static time
+	public static ScreenState state; // What state of the game we are currently on
 	private BackgroundManager bManager;
 
 	private enum ScreenState {

@@ -4,35 +4,58 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import xyz.disarray.game.screens.components.Button;
+import xyz.disarray.game.screens.components.RecButton;
 
 public class MainMenu extends Screen {
 
-	private ArrayList<Button> buttons = new ArrayList<>();
+	private ArrayList<RecButton> buttons = new ArrayList<>();
+
+	// Very great coding
+	private float col = 0f;
+	private String[] epicCode = {"Bad code, even worse gameplay", "No motivation", "Lacking Taylor tips and tricks"};
+	private int epic;
 	
 	public MainMenu() {
-		// This entire button system is bad but it works
-		buttons.add(new Button("Singleplayer"));
-		buttons.add(new Button("Multiplayer"));
-		buttons.add(new Button("Options"));
+		// This entire button system is bad but it works :)
+		buttons.add(new RecButton("Singleplayer"));
+		buttons.add(new RecButton("Multiplayer"));
+		buttons.add(new RecButton("Options"));
+		
+		epic = (int) (Math.random() * epicCode.length);
 	}
 
 	public void draw(PApplet g) {
+		// Cover up randomly generated background
+		g.background(40f);
+		
+		// Rainbow (good code)
+		g.colorMode(PConstants.HSB);
+		g.fill(col, 255, 255);
+		g.textSize(120);
+		g.text("Game", g.width / 2 - g.textWidth("Game") / 2, 10);
+		g.textSize(20);
+		g.fill(col, 255, 255);
+		g.stroke(255);
+		g.text(epicCode[epic], g.width / 2 - g.textWidth(epicCode[epic]) / 2, 135);
+		col += 0.5;
+		if(col > 255f)
+			col = 0f;
+		
+		g.colorMode(PConstants.RGB);
+		
 		g.rectMode(PConstants.CORNER);
-		
-		// Meme logo (delete before final version)
-		g.textSize(50);
-		g.fill(0, 50, 255);
-		g.stroke(255, 255, 255);
-		g.rect(g.width / 2 - g.textWidth("G A M E") / 2, g.height / 3 + 2, g.textWidth("G A M E"), 50);
-		g.fill(255, 50, 100);
-		g.text("G A M E", (g.width - g.textWidth("G A M E")) / 2 , g.height / 3);
-		g.textSize(12);
-		
+
+		// Is hovered check in draw cause I don't want to add PApplet args to update
+		for (RecButton b : buttons)
+			if (b.isPointInside(g.mouseX, g.mouseY))
+				b.hover();
+
 		// Buttons
+		g.textSize(40);
 		for (int i = 0; i < buttons.size(); i++) {
-			buttons.get(i).draw(g, g.width / 2, 300 + 40 * i);
+			buttons.get(i).draw(g, -1, 300 + 100 * i);
 		}
+
 	}
 
 	// This entire button system is bad but it works
@@ -59,6 +82,6 @@ public class MainMenu extends Screen {
 
 	@Override
 	public void update() {
-		
+
 	}
 }

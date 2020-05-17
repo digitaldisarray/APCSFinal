@@ -4,19 +4,14 @@ import java.util.ArrayList;
 
 public class BackgroundManager {
 	
-	/*
-	 * Potential changes:
-	 * - Only image backgrounds when in a menu
-	 * - Mode in settings to disable/enable not serious backgrounds
-	 */
-	
 	private ArrayList<Background> backgrounds = new ArrayList<>();
 	private int index;
 	
 	public BackgroundManager() {
 		backgrounds.add(new Wave());
+		// Commented out for now cause processing sucks at drawing images without dropping FPS a ton
 	//	backgrounds.add(new Man());
-		//backgrounds.add(new CellsInterlinked());
+		backgrounds.add(new CellsInterlinked());
 		
 		for(Background b : backgrounds)
 			b.setup();
