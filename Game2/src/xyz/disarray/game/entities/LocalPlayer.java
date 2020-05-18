@@ -167,7 +167,7 @@ public class LocalPlayer extends Entity {
 		if (cooldown > 0)
 			cooldown--;
 
-		drawHealthBar(g, 100);
+		drawHealthBar(g, Game.getHealth());
 
 		g.popMatrix();
 		for (Entity b : bullets)

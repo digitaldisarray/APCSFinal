@@ -32,8 +32,10 @@ public class Game extends PApplet {
 	public static Color bad = new Color(255, 40, 40);
 	public static Color grey = new Color(100, 100, 100);
 	public static Color darkGrey = new Color(50, 50, 50);
-	
-	public static int moveSpeed, damage, health;
+
+	private static int moveSpeed;
+	private static int damage;
+	private static int health;
 	public static final int DEF_SPEED = 2, DEF_DAMAGE = 5, DEF_HEALTH = 100;
 
 	// Storing here because I don't want to make an ImageManager class
@@ -68,11 +70,11 @@ public class Game extends PApplet {
 		moveSpeed = DEF_SPEED;
 		damage = DEF_DAMAGE;
 		health = DEF_HEALTH;
-		
+
 	}
 
 	public void draw() {
-		//System.out.println(state);
+		// System.out.println(state);
 		background(180, 180, 180);
 		bManager.getBackground().draw(this);
 
@@ -204,7 +206,8 @@ public class Game extends PApplet {
 						this.stroke(255, 100, 100);
 					}
 
-				//	this.line((float) l.getX1(), (float) l.getY1(), (float) l.getX2(), (float) l.getY2());
+					// this.line((float) l.getX1(), (float) l.getY1(), (float) l.getX2(), (float)
+					// l.getY2());
 				}
 			}
 
@@ -240,13 +243,12 @@ public class Game extends PApplet {
 				break;
 			}
 		}
-		
-		else if(state == ScreenState.SETTINGS) {
+
+		else if (state == ScreenState.SETTINGS) {
 			/*
-			 * 0 - Return
-			 * 1 - Rando colors
+			 * 0 - Return 1 - Rando colors
 			 */
-			switch(code) {
+			switch (code) {
 			case 0:
 				screen = new MainMenu();
 				state = ScreenState.MENU;
@@ -255,34 +257,34 @@ public class Game extends PApplet {
 				good = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
 				bad = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
 				grey = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
-				darkGrey = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
+				darkGrey = new Color((int) (Math.random() * 255), (int) (Math.random() * 255),
+						(int) (Math.random() * 255));
 			case 2:
 				screen = new Colors();
 				state = ScreenState.COLORS;
-			case 3: 
+			case 3:
 				screen = new SelectClass();
 				state = ScreenState.SELECTCLASS;
-				
+
 			}
 		}
-		
-		else if(state == ScreenState.COLORS) {
-			
-			switch(code) {
+
+		else if (state == ScreenState.COLORS) {
+
+			switch (code) {
 			case 1:
 				screen = new Settings();
 				state = ScreenState.SETTINGS;
 			}
-		}else if (state == ScreenState.SELECTCLASS) {
-			
-			switch(code) {
+		} else if (state == ScreenState.SELECTCLASS) {
+
+			switch (code) {
 			case 1:
 				screen = new Settings();
 				state = ScreenState.SETTINGS;
 			}
-			
+
 		}
-		
 
 	}
 
@@ -447,9 +449,37 @@ public class Game extends PApplet {
 			return null;
 		}
 	}
-	
+
 	public ScreenState getState() {
 		return state;
+	}
+	// private int moveSpeed, damage, health;
+
+	public static void setHealth(int newHealth) {
+		health = newHealth;
+
+	}
+
+	public static int getHealth() {
+		return health;
+	}
+
+	public static void setDamage(int newDamage) {
+		damage = newDamage;
+
+	}
+
+	public static int getDamage() {
+		return damage;
+	}
+
+	public static void setMoveSpeed(int newMoveSpeed) {
+		moveSpeed = newMoveSpeed;
+
+	}
+
+	public static int getMoveSpeed() {
+		return moveSpeed;
 	}
 
 }

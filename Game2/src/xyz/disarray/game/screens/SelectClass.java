@@ -64,22 +64,22 @@ public class SelectClass extends Screen {
 		}
 
 		else if (clicked.equals("Heavy class")) {
-			Game.moveSpeed = Game.DEF_SPEED / 2;
-			Game.damage = Game.DEF_DAMAGE * 2;
-			Game.health = Game.DEF_HEALTH * 2;
+			Game.setMoveSpeed(Game.DEF_SPEED / 2);
+			Game.setDamage(Game.DEF_DAMAGE * 2);
+			Game.setHealth(Game.DEF_HEALTH * 2);
 
 		}
 
 		else if (clicked.equals("Light class")) {
-			Game.moveSpeed = Game.DEF_SPEED * 2;
-			Game.damage = Game.DEF_DAMAGE - 1;
-			Game.health = Game.DEF_HEALTH / 2;
+			Game.setMoveSpeed(Game.DEF_SPEED * 2);
+			Game.setDamage(Game.DEF_DAMAGE - 1);
+			Game.setHealth(Game.DEF_HEALTH / 2);
 		}
 		
 		else if (clicked.equals("Base class")) {
-			Game.moveSpeed = Game.DEF_SPEED;
-			Game.damage = Game.DEF_DAMAGE;
-			Game.health = Game.DEF_HEALTH;
+			Game.setMoveSpeed(Game.DEF_SPEED);
+			Game.setDamage(Game.DEF_DAMAGE);
+			Game.setHealth(Game.DEF_HEALTH);
 		}else if (clicked.equals("Go back")) {
 			return 1;
 		}
