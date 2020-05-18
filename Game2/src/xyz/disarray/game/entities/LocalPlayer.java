@@ -13,8 +13,7 @@ public class LocalPlayer extends Entity {
 
 	private int vx, vy;
 	private final int SPEED;
-	private final int FRICTION = 2;
-	private final int MAX_VELOCITY;
+	private final int FRICTION, MAX_VELOCITY;
 	private boolean cright, cleft, cup, cdown;
 	private boolean right, left, up, down;
 	private boolean clicked;
@@ -31,10 +30,10 @@ public class LocalPlayer extends Entity {
 		cooldown = 0;
 		bullets = new ArrayList<>();
 		SPEED = 2;
-		MAX_VELOCITY = 3 * SPEED;
 		kills = 0;
 		setDamage(5);
-
+		FRICTION = SPEED;
+		MAX_VELOCITY = 3* SPEED;
 	}
 
 	public LocalPlayer(int x, int y, int damage, int moveSpeed, int health) {
@@ -42,9 +41,12 @@ public class LocalPlayer extends Entity {
 		cooldown = 0;
 		bullets = new ArrayList<>();
 		SPEED = moveSpeed;
-		MAX_VELOCITY = 3 * SPEED;
+		
 		setHealth(health);
 		setDamage(damage);
+		FRICTION = SPEED;
+		MAX_VELOCITY = 3* SPEED;
+
 	}
 
 	@Override
@@ -53,7 +55,7 @@ public class LocalPlayer extends Entity {
 			if (Math.abs(vx) + SPEED < MAX_VELOCITY) {
 				if (right)
 					vx += SPEED;
-				else
+				else if(left)
 					vx -= SPEED;
 			} else if (Math.abs(vx) + SPEED > MAX_VELOCITY) {
 				vx = MAX_VELOCITY * (vx / Math.abs(vx));
@@ -64,10 +66,10 @@ public class LocalPlayer extends Entity {
 			if (Math.abs(vy) + SPEED < MAX_VELOCITY) {
 				if (up)
 					vy -= SPEED;
-				else
+				else if(down)
 					vy += SPEED;
 			} else {
-				if (vy != 0)
+				if (Math.abs(vy) + SPEED > MAX_VELOCITY)
 					vy = MAX_VELOCITY * (vy / Math.abs(vy));
 			}
 		}
@@ -102,10 +104,45 @@ public class LocalPlayer extends Entity {
 			b.act();
 
 		// Reset collision variables
-		cright = false;
-		cleft = false;
-		cup = false;
-		cdown = false;
+//		cright = false;
+//		cleft = false;
+//		cup = false;
+//		cdown = false;
+//		if (right != left) {
+//			if (right) {
+//				vx = SPEED;
+//				System.out.println("right");
+//			} else {
+//				vx = -SPEED;
+//				System.out.println("Left");
+//			}
+//		}
+//
+//		if (up != down) {
+//			if (up)
+//				vy = -SPEED;
+//			else
+//				vy = SPEED;
+//		}
+//		
+//		System.out.println("VX " + vx);
+//		System.out.println("VY " + vy);
+//		move(vx, vy);
+//
+//		if (vx < 0)
+//			vx += FRICTION;
+//
+//		if (vx > 0)
+//			vx -= FRICTION;
+//
+//		if (vy < 0)
+//			vy += FRICTION;
+//
+//		if (vy > 0)
+//			vy -= FRICTION;
+//
+//		for (Entity b : bullets)
+//			b.act();
 	}
 
 	@Override
@@ -114,8 +151,8 @@ public class LocalPlayer extends Entity {
 
 		g.fill(255);
 		g.textSize(20);
-		g.text("Kills: " + kills,5,5 );
-		
+		g.text("Kills: " + kills, 5, 5);
+
 		g.noStroke();
 		g.fill(getColor().getRGB());
 		g.rectMode(PConstants.CORNER);
@@ -129,8 +166,8 @@ public class LocalPlayer extends Entity {
 
 		if (cooldown > 0)
 			cooldown--;
-		
-		drawHealthBar(g,100);
+
+		drawHealthBar(g, 100);
 
 		g.popMatrix();
 		for (Entity b : bullets)
@@ -141,12 +178,10 @@ public class LocalPlayer extends Entity {
 	public void shoot(int x2, int y2) {
 		// TODO: Remove this debug var eventually
 		boolean rayTraced = true;
-		
-		System.out.println("Health: " + getHealth());
-		System.out.println("Damage: " +getDamage());
-		System.out.println("Speed: " + SPEED);
 
-		
+		System.out.println("Health: " + getHealth());
+		System.out.println("Damage: " + getDamage());
+		System.out.println("Speed: " + SPEED);
 
 		if (rayTraced) {
 			double mouseAngle = Math.abs(Math.toDegrees(Math.atan2(y2 - getY(), x2 - getX())));
@@ -157,7 +192,8 @@ public class LocalPlayer extends Entity {
 				else
 					mouseAngle = 360 - mouseAngle;
 
-			bullets.add(new RayBullet(getX() + getWidth() / 2, getY() + getHeight() / 2, mouseAngle, 1000, getDamage()));
+			bullets.add(
+					new RayBullet(getX() + getWidth() / 2, getY() + getHeight() / 2, mouseAngle, 1000, getDamage()));
 
 		} else {
 			// Radians
@@ -217,7 +253,7 @@ public class LocalPlayer extends Entity {
 	public void addKill() {
 		kills++;
 	}
-	
+
 	public int getKills() {
 		return kills;
 	}
