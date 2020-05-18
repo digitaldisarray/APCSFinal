@@ -125,7 +125,7 @@ public class Zombie extends Entity {
 	}
 
 	public void collide(Entity e) {
-		if (e instanceof Bullet || e instanceof RayBullet)
+		if (e instanceof RayBullet)
 			setHealth(getHealth() - e.getDamage());
 	}
 

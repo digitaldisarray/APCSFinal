@@ -4,18 +4,15 @@ import java.awt.Color;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import processing.core.PApplet;
 import processing.core.PImage;
 import xyz.disarray.game.backgrounds.BackgroundManager;
-import xyz.disarray.game.entities.Bullet;
 import xyz.disarray.game.entities.Entity;
 import xyz.disarray.game.entities.LocalPlayer;
 import xyz.disarray.game.entities.RayBullet;
-import xyz.disarray.game.entities.Wall;
 import xyz.disarray.game.entities.Zombie;
 import xyz.disarray.game.screens.Colors;
 import xyz.disarray.game.screens.MainMenu;
@@ -125,7 +122,8 @@ public class Game extends PApplet {
 			doCollisions(player, singleplayer);
 
 			// Vis checks
-			doVisCheck(player, singleplayer.getEntities());
+			// Walls removed so not needed
+			//doVisCheck(player, singleplayer.getEntities());
 
 			// Check if the player is dead
 			// This might always have to be last since we overwrite our screen object
@@ -153,7 +151,8 @@ public class Game extends PApplet {
 	 * @param entities - The entities currently present in the game (only need
 	 *                 walls, zombies, and enemies)
 	 */
-	private void doVisCheck(Entity source, ArrayList<Entity> entities) {
+	// Walls were removed so this is no longer needed
+	/*private void doVisCheck(Entity source, ArrayList<Entity> entities) {
 		ArrayList<Entity> obstructions = new ArrayList<>();
 		ArrayList<Entity> targets = new ArrayList<>();
 
@@ -220,7 +219,7 @@ public class Game extends PApplet {
 			t.setVisible(vis);
 		}
 
-	}
+	}*/
 
 	public void mousePressed() {
 		// Get code from given screen
@@ -380,8 +379,6 @@ public class Game extends PApplet {
 							b2.endPointChecked();
 						}
 					}
-
-				} else if (bullets.get(0) instanceof Bullet) {
 
 				}
 			}

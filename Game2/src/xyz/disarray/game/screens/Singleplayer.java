@@ -5,22 +5,16 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import xyz.disarray.game.entities.Entity;
 import xyz.disarray.game.entities.LocalPlayer;
-import xyz.disarray.game.entities.Wall;
 import xyz.disarray.game.entities.Zombie;
 
 public class Singleplayer extends Screen {
 	private double zombieSpawnRate = 0.003;
 	private ArrayList<Entity> entities;
-	private ArrayList<Wall> walls;
 	private LocalPlayer p;
 
 	public Singleplayer(LocalPlayer p) {
 		entities = new ArrayList<>();
 		this.p = p;
-		// entities.add(new Wall(80, 80, 100, 10));
-
-		// TODO: Get walls from map loader and add to entities
-
 	}
 
 	public void update() {
