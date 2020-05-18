@@ -23,6 +23,7 @@ import xyz.disarray.game.screens.Screen;
 import xyz.disarray.game.screens.SelectClass;
 import xyz.disarray.game.screens.Settings;
 import xyz.disarray.game.screens.Singleplayer;
+import xyz.disarray.game.util.epicSound;
 
 public class Game extends PApplet {
 
@@ -70,6 +71,11 @@ public class Game extends PApplet {
 		moveSpeed = DEF_SPEED;
 		damage = DEF_DAMAGE;
 		health = DEF_HEALTH;
+		
+		epicSound gamerMoment = new epicSound();
+		gamerMoment.playEpicSound("VoiceOverPete.wav", 1);
+		
+		
 
 	}
 
