@@ -11,8 +11,6 @@ public class Settings extends Screen {
 	// Again, this entire system of buttons is trash but works
 	private ArrayList<Button> buttons = new ArrayList<>();
 
-	private long startTimeMillis;
-
 	// TODO: Add settings that are actually useful? (big maybe)
 	public Settings() {
 		buttons.add(new Button("return; <-- Comedy"));

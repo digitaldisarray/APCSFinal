@@ -20,7 +20,7 @@ import xyz.disarray.game.screens.Screen;
 import xyz.disarray.game.screens.SelectClass;
 import xyz.disarray.game.screens.Settings;
 import xyz.disarray.game.screens.Singleplayer;
-import xyz.disarray.game.util.epicSound;
+import xyz.disarray.game.util.EpicSound;
 
 public class Game extends PApplet {
 
@@ -69,13 +69,15 @@ public class Game extends PApplet {
 		damage = DEF_DAMAGE;
 		health = DEF_HEALTH;
 		
-		epicSound gamerMoment = new epicSound();
-		gamerMoment.playEpicSound("VoiceOverPete.wav", 1);
+		EpicSound gamerMoment = new EpicSound();
+		gamerMoment.playEpicSound("res/audio/nokia-beat-q.wav", 69);
 		
 		
 
 	}
 
+	private String[] audio = {"baba.wav", "boom.wav", "bruh.wav", "look-at-this.wav", "not-what.wav", "spoon.wav", "thats-why.wav"};
+	
 	public void draw() {
 		// System.out.println(state);
 		background(180, 180, 180);
@@ -120,7 +122,13 @@ public class Game extends PApplet {
 
 			// Collide
 			doCollisions(player, singleplayer);
-
+			
+			if((int) (Math.random() * 432) == 1) {
+				EpicSound gamerMoment = new EpicSound();
+				gamerMoment.playEpicSound("res/audio/" + audio[(int) (Math.random() * audio.length)], 1);
+			}
+				
+			
 			// Vis checks
 			// Walls removed so not needed
 			//doVisCheck(player, singleplayer.getEntities());

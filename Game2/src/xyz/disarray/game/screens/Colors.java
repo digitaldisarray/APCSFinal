@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import processing.core.PApplet;
-import processing.core.PConstants;
 import xyz.disarray.game.Game;
 import xyz.disarray.game.screens.components.Button;
 
