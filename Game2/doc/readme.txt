@@ -21,14 +21,12 @@ This program will be a 2D game where the objective is to destroy your opponents 
 
 
 Instructions:
-LBUTTON - Select/Fire/Confirm/Enable/Disable/Toggle
-MWHEEL_UP - Change weapon/item index +1
-MWHEEL_DOWN - Change weapon/item index -1
+LBUTTON - Select/Fire
 W - Move up
 A - Move left
 S - Move down
 D - Move right
-ESCAPE - Pause/Exit/Quit/Stop/Back
+ESCAPE - Exit
 
 
 Features List (THE ONLY SECTION THAT CANNOT CHANGE LATER):
@@ -67,10 +65,8 @@ Class List:
 Launcher - Just the main()
 Game - Main game loop. Stores instance of singleplayer, multiplayer, and local player
 Entity - Abstract class that represents an entity
-Bullet - A bullet
 LocalPlayer - The local player
 RayBullet - A ray casted bullet
-Wall - A wall
 Zombie - A Zombie
 Screen - Represents a screen
 MainMenu - The main menu
@@ -82,18 +78,16 @@ RayCasting - A ray casting utility class
 Vector2D - A 2D vector
 
 
-
-
 Credits:
 [Gives credit for project components. This includes both internal credit (your group members) and external credit (other people, websites, libraries). To do this:
 * List the group members and describe how each member contributed to the completion of the final program. This could be classes written, art assets created, leadership/organizational skills exercises, or other tasks. Initially, this is how you plan on splitting the work.
 * Give credit to all outside resources used. This includes downloaded images or sounds, external java libraries, parent/tutor/student coding help, etc.]
 
 
-Kevin - Initial game base, machine learning, networking
-Sam - GUI, menus, game features, weapons, and mechanics
-Andres - Machine learning, networking, features/weapons
+Kevin - Initial game base and debugging
+Sam - GUI, in game classes, sound
+Andres - Enemies and gameplay
 
 
 Resources Used:
-CRAZIE LOCS - Weapon sound effects
+Random sound effects from YouTube
