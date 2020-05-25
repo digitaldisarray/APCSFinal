@@ -76,7 +76,7 @@ public class Game extends PApplet {
 
 	}
 
-	private String[] audio = {"baba.wav", "boom.wav", "bruh.wav", "look-at-this.wav", "not-what.wav", "spoon.wav", "thats-why.wav"};
+	private String[] audio = {"baba.wav", "boom.wav", "bruh.wav", /*"look-at-this.wav",*/ "not-what.wav", "spoon.wav", "thats-why.wav", "angry.wav"};
 	
 	public void draw() {
 		// System.out.println(state);
@@ -123,7 +123,7 @@ public class Game extends PApplet {
 			// Collide
 			doCollisions(player, singleplayer);
 			
-			if((int) (Math.random() * 432) == 1) {
+			if((int) (Math.random() * 370) == 1) {
 				EpicSound gamerMoment = new EpicSound();
 				gamerMoment.playEpicSound("res/audio/" + audio[(int) (Math.random() * audio.length)], 1);
 			}
